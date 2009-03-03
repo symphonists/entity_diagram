@@ -1,0 +1,118 @@
+div#diagram {
+	padding: 0 20px;
+	overflow: hidden;
+	padding-bottom: 50px;
+	clear: both;
+}
+
+div.section {
+	border: 1px solid #aaa;
+	float: left;
+	width: 300px;
+	visibility: hidden;
+}
+
+div.column {
+	float: left;
+	width: 302px;
+	margin-right: 20px;
+	overflow: hidden;
+}
+
+div.section h3 {
+	display: block;
+	width: auto;
+	padding: 5px;
+	border-bottom: 2px solid #aaa;
+	background-color: #eee;
+	margin: 0;
+	overflow: hidden;
+}
+
+div.section h3 span {
+	float: left;
+}
+
+div.section h3 span span.entry-count {
+	float: none;
+	color: #bbb;
+	padding-left: 5px;
+}
+
+div.section h3 span span.section-id {
+	float: none;
+	color: #aaa;
+	font-weight: normal;
+}
+
+div.section h3 a.edit {
+	display: none;
+	float: right;
+}
+
+div.section ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+div.section li {
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+}
+
+div.section span.type {
+	color: #888;
+}
+
+div.section span.name span.type {
+	font-style: italic;
+}
+
+div.section span.section-link {
+	display: block;
+	color: #aaa;
+}
+
+.highlighted {
+	background-color: #fffcd1;
+}
+
+div.row {
+	float: left;
+	clear: left;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+ul#usr {
+	display: none;
+}
+
+span.field-id,
+span.section-id {
+	display: none;
+}
+
+h2 label {
+	display: block;
+	font-size: 0.8em;
+}
+
+h2 label input {
+	vertical-align: text-bottom;
+	margin-right: 4px;
+}
+
+div.advanced div.section span.section-link {
+	padding-left: 25px;
+}
+
+div.advanced div.section span.field-id {
+	color: #ccc;
+}
+
+div.advanced span.field-id,
+div.advanced span.section-id {
+	width: 22px;
+	display: inline-block;
+}
