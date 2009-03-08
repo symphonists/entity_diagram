@@ -29,12 +29,12 @@
 			$output->setAttribute("id", "diagram");
 			
 			// get all section links
-			$section_associations = $this->_Parent->Database->fetch("SELECT * FROM sym_sections_association");
+			$section_associations = $this->_Parent->Database->fetch("SELECT * FROM tbl_sections_association");
 			
 			foreach($sections as $section) {
 				
 				// count number of entries
-				$entry_count = $this->_Parent->Database->fetchRow(0, "SELECT COUNT(id) as count FROM sym_entries WHERE section_id='" . $section->_data["id"] . "'");
+				$entry_count = $this->_Parent->Database->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->_data["id"] . "'");
 				
 				$section_node = new XMLElement("div");
 				$section_node->setAttribute("class", "section");
