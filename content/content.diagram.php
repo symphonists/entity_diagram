@@ -3,7 +3,8 @@
 	require_once(TOOLKIT . '/class.administrationpage.php');
 	require_once(TOOLKIT . '/class.sectionmanager.php');
 	require_once(TOOLKIT . '/class.fieldmanager.php');
-
+	require_once(TOOLKIT . '/class.entrymanager.php');
+	
 	Class contentExtensionEntity_DiagramDiagram extends AdministrationPage{
 
 		function __construct(&$parent){
