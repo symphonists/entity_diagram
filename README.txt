@@ -2,10 +2,10 @@
 Entity Diagram extension
 ------------------------------------
 
-Version: 1.2
+Version: 1.3
 Author: Nick Dunn (nick.dunn@airlock.com)
-Build Date: 2009-02-04
-Requirements: Symphony 2.0
+Build Date: 2009-07-01
+Requirements: Symphony 2.0.3
 
 
 [INSTALLATION]
@@ -18,6 +18,9 @@ Requirements: Symphony 2.0
 
 
 [CHANGES]
+
+1.3
+- Now appears under the Blueprints menu. Requires Symphony 2.0.3.
 
 1.2
 - Fixed a bug related to Select Box Link field v1.7+

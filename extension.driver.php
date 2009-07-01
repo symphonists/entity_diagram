@@ -5,8 +5,8 @@
 		public function about(){
 			return array(
 				'name'			=> 'Entity Diagram',
-				'version'		=> '1.2',
-				'release-date'	=> '2009-02-04',
+				'version'		=> '1.3',
+				'release-date'	=> '2009-07-01',
 				'author' => array(
 					'name'		=> 'Nick Dunn',
 					'website'	=> 'http://airlock.com',
@@ -14,14 +14,14 @@
 			);
 		}
 
-		public function fetchNavigation(){			
+		public function fetchNavigation() {
 			return array(
 				array(
-					'location'	=> 300,
+					'location' => 'Blueprints',
 					'name'	=> 'Entity Diagram',
 					'link'	=> '/diagram/'
 				)
-			);		
+			);
 		}
 			
 	}
