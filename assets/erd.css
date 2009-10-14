@@ -6,7 +6,7 @@ div#diagram {
 }
 
 div.section {
-	border: 1px solid #aaa;
+	border: 1px solid #ccc;
 	float: left;
 	width: 300px;
 	visibility: hidden;
@@ -23,7 +23,7 @@ div.section h3 {
 	display: block;
 	width: auto;
 	padding: 5px;
-	border-bottom: 2px solid #aaa;
+	border-bottom: 1px solid #ccc;
 	background-color: #eee;
 	margin: 0;
 	overflow: hidden;
@@ -37,6 +37,8 @@ div.section h3 span span.entry-count {
 	float: none;
 	color: #bbb;
 	padding-left: 5px;
+	font-weight: normal;
+	text-shadow: none;
 }
 
 div.section h3 span span.section-id {
@@ -96,6 +98,11 @@ span.section-id {
 h2 label {
 	display: block;
 	font-size: 0.8em;
+}
+
+h2 span {
+	color: #ccc;
+	text-shadow: none;
 }
 
 h2 label input {

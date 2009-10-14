@@ -14,13 +14,14 @@
 	
 	
 		function view(){
-
-			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'screen', 70);
+			
+			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 70);
+			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd-print.css', 'print', 70);
 			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/jquery-1.3.min.js', 75);
 			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 80);
 
 			$this->setPageType('table');
-			$this->appendSubheading("Entity Diagram");
+			$this->appendSubheading('Entity Diagram <span>' . $this->_Parent->Configuration->get('sitename', 'general') . '</span>');
 			
 			// get all sections
 			$sm = new SectionManager($this->_Parent);

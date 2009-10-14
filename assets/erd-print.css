@@ -1,0 +1,28 @@
+h1,
+ul#nav,
+ul#usr,
+h2 label {
+	display: none;
+}
+
+body {
+	font: 68.75%/1.5 Arial, sans-serif;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+div#diagram {
+	padding: 0;
+}
+
+h3 span.entry-count,
+h3 a {
+	display: none;
+}
+
+h3 a {
+	color: #eee;
+}
