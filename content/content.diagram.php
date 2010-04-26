@@ -15,10 +15,10 @@
 	
 		function view(){
 			
-			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 70);
-			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd-print.css', 'print', 70);
-			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/jquery-1.3.min.js', 75);
-			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 80);
+			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 271);
+			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd-print.css', 'print', 272);
+			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/jquery-1.3.min.js', 273);
+			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
 
 			$this->setPageType('table');
 			$this->appendSubheading('Entity Diagram <span>' . $this->_Parent->Configuration->get('sitename', 'general') . '</span>');
@@ -53,6 +53,7 @@
 				
 				// get list of fields
 				$fields = $section->fetchFields();
+				if (!is_array($fields)) continue;
 				
 				$field_list = new XMLElement("ul");
 				
@@ -85,20 +86,28 @@
 							$child_section = $sm->fetch($relationship["child_section_id"]);
 							$child_section_field = $section->_fieldManager->fetch($relationship["child_section_field_id"]);
 							
+							$relationship_exists = false;
+							
 							// if a parent
 							if ($field_properties["id"] == $relationship["parent_section_field_id"]) {
-								// get the properties of this relationship
-								$linked_section_name = $child_section->_data["name"];
-								$linked_field_name = $child_section_field->get("label");
+								if ($child_section_field) {
+									// get the properties of this relationship
+									$linked_section_name = $child_section->_data["name"];
+									$linked_field_name = $child_section_field->get("label");
+								}								
 							} else {
-								// get the properties of this relationship
-								$linked_section_name = $parent_section->_data["name"];
-								$linked_field_name = $parent_section_field->get("label");
+								if ($parent_section_field) {
+									// get the properties of this relationship
+									$linked_section_name = $parent_section->_data["name"];
+									$linked_field_name = $parent_section_field->get("label");
+								}								
 							}
 							
-							$sb_meta = new XMLElement("span", "Linked to <span class='name'>" . $linked_field_name . "</span> in " . $linked_section_name);
-							$sb_meta->setAttribute("class", "section-link section-link-" . $relationship["id"]);		
-							$field_type->appendChild($sb_meta);
+							if ($linked_field_name) {
+								$sb_meta = new XMLElement("span", "Linked to <span class='name'>" . $linked_field_name . "</span> in " . $linked_section_name);
+								$sb_meta->setAttribute("class", "section-link section-link-" . $relationship["id"]);		
+								$field_type->appendChild($sb_meta);
+							}
 							
 						}
 						
