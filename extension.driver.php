@@ -6,12 +6,12 @@
 		public function about(){
 			return array(
 				'name'			=> 'Entity Diagram',
-				'version'		=> '1.3',
-				'release-date'	=> '2009-07-01',
+				'version'		=> '1.4',
+				'release-date'	=> '2010-04-26',
 				'author' => array(
 					'name'		=> 'Nick Dunn',
-					'website'	=> 'http://airlock.com',
-					'email'		=> 'nick.dunn@airlock.com')
+					'website'	=> 'http://nick-dunn.co.uk',
+					'email'		=> 'nick@nick-dunn.co.uk')
 			);
 		}
 

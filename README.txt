@@ -2,9 +2,9 @@
 Entity Diagram extension
 ------------------------------------
 
-Version: 1.3
-Author: Nick Dunn (nick.dunn@airlock.com)
-Build Date: 2009-07-01
+Version: 1.4
+Author: Nick Dunn
+Build Date: 2010-04-26
 Requirements: Symphony 2.0.3
 
 
@@ -18,6 +18,11 @@ Requirements: Symphony 2.0.3
 
 
 [CHANGES]
+
+1.4
+- various bug fixes
+- added support for Graphviz export in System > Preferences
+- added support for Subsection Manager field
 
 1.3
 - Now appears under the Blueprints menu. Requires Symphony 2.0.3.
