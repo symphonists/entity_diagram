@@ -7,6 +7,8 @@ EntityDiagram = {
 	
 	init: function() {
 		
+		$ = jQuery;
+		
 		// keep a reference to current object for use within anonymous
 		// functions/closures to maintain scope
 		var self = this;
@@ -184,6 +186,6 @@ EntityDiagram = {
 	}
 };
 
-$(document).ready(function() {
+jQuery(document).ready(function() {
 	EntityDiagram.init();
 });
