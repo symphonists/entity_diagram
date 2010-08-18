@@ -9,7 +9,7 @@
 
 		function __construct(&$parent){
 			parent::__construct($parent);
-			$this->setTitle('Symphony &ndash; Entity Diagram');
+			$this->setTitle('Symphony &ndash; ' . __('Entity Diagram'));
 		}
 	
 	
@@ -21,7 +21,7 @@
 			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
 
 			$this->setPageType('table');
-			$this->appendSubheading('Entity Diagram <span>' . $this->_Parent->Configuration->get('sitename', 'general') . '</span>');
+			$this->appendSubheading(__('Entity Diagram') . ' <span>' . $this->_Parent->Configuration->get('sitename', 'general') . '</span>');
 			
 			// get all sections
 			$sm = new SectionManager($this->_Parent);
@@ -43,13 +43,13 @@
 				$section_node->setAttribute("id", "section-" . $section->_data["id"]);
 				
 				if ($entry_count["count"] == 1) {
-					$entries = "1 entry";
+					$entries = __('1 entry');
 				} else {
-					$entries = $entry_count["count"] . " entries";
+					$entries = __('%d entries', array($entry_count["count"]));
 				}
 				
 				// add section name and entry count
-				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->_data["id"] . "</span>" . $section->_data["name"] . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->_data["id"] . "/\" class=\"edit\">edit</a>"));
+				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->_data["id"] . "</span>" . $section->_data["name"] . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->_data["id"] . "/\" class=\"edit\">" . __("edit") . "</a>"));
 				
 				// get list of fields
 				$fields = $section->fetchFields();
@@ -104,7 +104,7 @@
 							}
 							
 							if ($linked_field_name) {
-								$sb_meta = new XMLElement("span", "Linked to <span class='name'>" . $linked_field_name . "</span> in " . $linked_section_name);
+								$sb_meta = new XMLElement("span", __("Linked to <span class='name'>%s</span> in %s", array($linked_field_name, $linked_section_name)));
 								$sb_meta->setAttribute("class", "section-link section-link-" . $relationship["id"]);		
 								$field_type->appendChild($sb_meta);
 							}
