@@ -18,8 +18,8 @@
 		public function fetchNavigation() {
 			return array(
 				array(
-					'location' => 'Blueprints',
-					'name'	=> 'Entity Diagram',
+					'location' => __('Blueprints'),
+					'name'	=> __('Entity Diagram'),
 					'link'	=> '/diagram/'
 				)
 			);
