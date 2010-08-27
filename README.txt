@@ -2,9 +2,9 @@
 Entity Diagram extension
 ------------------------------------
 
-Version: 1.4
+Version: 1.4.1
 Author: Nick Dunn
-Build Date: 2010-04-26
+Build Date: 2010-08-27
 Requirements: Symphony 2.0.3
 
 
@@ -18,6 +18,10 @@ Requirements: Symphony 2.0.3
 
 
 [CHANGES]
+
+1.5 (thanks phoque!)
+- removed jQuery, now uses Symphony's jQuery bundle
+- added German localisation
 
 1.4
 - various bug fixes
