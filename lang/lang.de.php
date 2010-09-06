@@ -33,6 +33,17 @@
 		"Linked to <span class='name'>%s</span> in %s" =>
 		"Verlinkt mit <span class='name'>%s</span> in %s",
 		
+		"Entity Diagram Export" =>
+		"Relationendiagramm-Export",
+		
+		"Included Sections" =>
+		"Enthaltene Sektionen",
+		
+		"Export Graphviz" =>
+		"Graphviz exportieren",
+		
+		
+		
 		
 
 	);

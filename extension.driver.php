@@ -170,7 +170,7 @@
 
 			$group = new XMLElement('fieldset');
 			$group->setAttribute('class', 'settings');
-			$group->appendChild(new XMLElement('legend', 'Entity Diagram Export'));
+			$group->appendChild(new XMLElement('legend', __('Entity Diagram Export')));
 
 			$aTableBody = array();
 			$options = array();
@@ -184,7 +184,7 @@
 			}
 			
 			$label = Widget::Label(
-				'Included Sections',
+				__('Included Sections'),
 				Widget::Select(
 					'fields[entity-diagram-sections][]',
 					$options,
@@ -197,7 +197,7 @@
 
 			$group->appendChild($label);
 			$group->appendChild(
-				Widget::Input('action[entity-diagram-graphviz-export]', 'Export Graphviz', 'submit')
+				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit')
 			);
 							
 			$context['wrapper']->appendChild($group);
