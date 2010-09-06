@@ -6,12 +6,11 @@
 		public function about(){
 			return array(
 				'name'			=> 'Entity Diagram',
-				'version'		=> '1.4',
-				'release-date'	=> '2010-04-26',
+				'version'		=> '1.4.1',
+				'release-date'	=> '2010-08-27',
 				'author' => array(
 					'name'		=> 'Nick Dunn',
-					'website'	=> 'http://nick-dunn.co.uk',
-					'email'		=> 'nick@nick-dunn.co.uk')
+					'website'	=> 'http://nick-dunn.co.uk')
 			);
 		}
 
