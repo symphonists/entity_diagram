@@ -34,19 +34,27 @@
 			);
 		}
 
-		public function export($section_ids){
-
-			$output = 'digraph g {
+		public function export($section_ids, $pagesize){
+			//var_dump($pagesize);
+			$output = "digraph g {
 
 			graph [
-				rankdir = LR
+				rankdir = LR";
+
+			if($pagesize != "auto"){
+				$output .= "
+				size=\"".$pagesize[0]."\"
+				ratio=fill";
+			}
+
+			$output .= "
 			];
 
 			node [
 				fontsize = 12
 				shape = plaintext
 				fontname = Arial
-			];';
+			];\n\n";
 
 			$sm = new SectionManager(Administration::instance());
 		  	$sections = $sm->fetch();
@@ -60,9 +68,9 @@
 				if (!in_array($section->get('id'), $section_ids)) continue;
 
 				$output .= sprintf(
-					's%d [
-						label = <<table border="0" cellborder="1" cellspacing="0" color="#666666"><tr><td bgcolor="#dddddd" port="h%d"><font color="#000000">%s</font></td></tr>',
-					$section->get("id"),
+					"\t\t\ts%d [
+						label = <<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" color=\"#666666\">
+									<tr><td bgcolor=\"#dddddd\" align=\"left\" port=\"h%1\$d\"><font color=\"#000000\">(%1\$d) %2\$s</font></td></tr>",
 					$section->get("id"),
 					$section->get("name")
 				);
@@ -73,7 +81,7 @@
 
 				foreach($fields as $field) {
 
-					$output .= sprintf('<tr><td port="f%d" align="left"><font color="#333333">%s</font> <font color="#aaaaaa" point-size="10">%s</font></td></tr>',
+					$output .= sprintf("<tr><td port=\"f%1\$d\" align=\"left\"><font color=\"#aaaaaa\" point-size=\"10\">(%1\$d)</font> <font color=\"#333333\">%2\$s</font> <font color=\"#aaaaaa\" point-size=\"10\">%3\$s</font></td></tr>",
 						$field->get("id"),
 						$field->get("label"),
 						$field->get('type')
@@ -129,15 +137,15 @@
 
 				}
 
-				$output .= sprintf('
-						</table>>];'
+				$output .= sprintf("
+						</table>>\n\t\t\t];\n\n"
 				);
 
 			}
 
 			foreach($relationships as $rel) {
 				$output .= sprintf(
-					's%d:f%d -> %s [arrowsize = 0.5, color="#666666"];',
+					"\t\t\ts%d:f%d -> %s [arrowsize = 0.5, color=\"#666666\"];\n",
 					$rel[0],
 					$rel[1],
 					(($rel[3] == null) ? 's' . $rel[2] . ':h' . $rel[2] : 's' . $rel[2] . ':f' . $rel[3])
@@ -164,7 +172,7 @@
 		public function appendPreferences($context){
 
 			if(isset($_POST['action']['entity-diagram-graphviz-export'])){
-				$this->export($_POST['fields']['entity-diagram-sections']);
+				$this->export($_POST['fields']['entity-diagram-sections'], $_POST['fields']['entity-diagram-page-size']);
 			}
 
 			$group = new XMLElement('fieldset');
@@ -173,6 +181,7 @@
 
 			$aTableBody = array();
 			$options = array();
+			$pagesize = array();
 
 			$sm = new SectionManager($this->_Parent);
 		  	$sections = $sm->fetch(NULL, 'ASC', 'name');
@@ -189,6 +198,13 @@
 				$attributes = array('disabled'=>'disabled');
 			}
 
+			$pagesize[] = array('auto', true, 'Auto');
+			$pagesize[] = array('11.19,7.76', false, 'A4');
+			$pagesize[] = array('16.03,11.19', false, 'A3');
+			$pagesize[] = array('22.88,16.03', false, 'A2');
+			$pagesize[] = array('32.61,22.88', false, 'A1');
+			$pagesize[] = array('46.31,32.61', false, 'A0');
+
 			$label = Widget::Label(
 				'Included Sections',
 				Widget::Select(
@@ -200,8 +216,19 @@
 					)
 				)
 			);
+			$label2 = Widget::Label(
+				'Page Size',
+				Widget::Select(
+					'fields[entity-diagram-page-size][]',
+					$pagesize,
+					array(
+						'style' => 'width:20%'
+					)
+				)
+			);
 
 			$group->appendChild($label);
+			$group->appendChild($label2);
 			$group->appendChild(
 				Widget::Input('action[entity-diagram-graphviz-export]', 'Export Graphviz', 'submit', $attributes)
 			);
