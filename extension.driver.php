@@ -178,9 +178,18 @@
 		  	$sections = $sm->fetch(NULL, 'ASC', 'name');
 			
 			$selected = true;
-			foreach($sections as $section) {
-				$options[] = array($section->get('id'), $selected, $section->get('name'));
+			
+			if(!empty($sections)){
+				foreach($sections as $section) {
+					$options[] = array($section->get('id'), $selected, $section->get('name'));
+					$attributes = NULL;
+				}
+			} else {
+				$options = NULL;
+				$attributes = array('disabled' => 'disabled');
 			}
+			
+			
 			
 			$label = Widget::Label(
 				__('Included Sections'),
@@ -196,7 +205,7 @@
 
 			$group->appendChild($label);
 			$group->appendChild(
-				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit')
+				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit', $attributes)
 			);
 							
 			$context['wrapper']->appendChild($group);
