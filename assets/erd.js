@@ -1,3 +1,7 @@
+Symphony.Language.add({
+	"Show section and field IDs": false
+});
+
 EntityDiagram = {
 		
 	container: null,
@@ -139,7 +143,7 @@ EntityDiagram = {
 			$(".section-link-" + id, self.container).parents(".field").addClass("highlighted");
 		});
 		
-		$("h2").append("<label><input type='checkbox' id='advanced-info' />Show section and field IDs</label>");
+		$("h2").append("<label><input type='checkbox' id='advanced-info' />" + Symphony.Language.get("Show section and field IDs") + "</label>");
 
 		$("#advanced-info").change(function() {
 			if ($(this).is(":checked")) {
