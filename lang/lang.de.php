@@ -17,7 +17,10 @@
 	 */
 
 	$dictionary = array(
-
+		
+		"Show section and field IDs" =>
+		"Zeige Bereichs- und Feld-IDs",
+		
 		"Entity Diagram" =>
 		"Relationendiagramm",
 		
