@@ -2,7 +2,7 @@
 Entity Diagram extension
 ------------------------------------
 
-Version: 1.4.2
+Version: 1.4.3
 Author: Nick Dunn
 Build Date: 2010-11-29
 Requirements: Symphony 2.0.3
@@ -18,6 +18,9 @@ Requirements: Symphony 2.0.3
 
 
 [CHANGES]
+
+1.4.3
+- README update blunder
 
 1.4.2
 - removed very broken print stylesheets (no longer supported)
