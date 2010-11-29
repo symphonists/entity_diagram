@@ -90,7 +90,8 @@ div.row {
 	margin-top: 20px;
 }
 
-ul#usr {
+#usr,
+#version {
 	display: none;
 }
 
