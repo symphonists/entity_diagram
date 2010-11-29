@@ -34,19 +34,28 @@
 			);
 		}
 		
-		public function export($section_ids){
+		public function export($section_ids, $show_ids=TRUE, $pagesize='auto', $show_relationships=FALSE){
 			
-			$output = 'digraph g {
+			$output = "digraph g {
 
 			graph [
-				rankdir = LR
+				rankdir = LR";
+			
+			if ($pagesize != 'auto') {
+				$output .= "
+				size = \"" . $pagesize . "\"
+				ratio = fill
+				";
+			}
+			
+			$output .= "
 			];
 
 			node [
 				fontsize = 12
 				shape = plaintext
 				fontname = Arial
-			];';
+			];\n\n";
 			
 			$sm = new SectionManager(Administration::instance());
 		  	$sections = $sm->fetch();
@@ -60,11 +69,11 @@
 				if (!in_array($section->get('id'), $section_ids)) continue;
 				
 				$output .= sprintf(
-					's%d [
-						label = <<table border="0" cellborder="1" cellspacing="0" color="#666666"><tr><td bgcolor="#dddddd" port="h%d"><font color="#000000">%s</font></td></tr>',
+					"\t\t\ts%1\$d [
+				label =	<<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" color=\"#666666\">
+				<tr><td bgcolor=\"#dddddd\" port=\"h%1\$d\"><font color=\"#000000\">%2\$s</font></td></tr>\n",
 					$section->get("id"),
-					$section->get("id"),
-					$section->get("name")
+					$section->get("name") . (($show_ids) ? " </font><font color=\"#888888\">(" . $section->get("id") . ")" : '')
 				);
 				
 				// get list of fields
@@ -73,9 +82,9 @@
 				
 				foreach($fields as $field) {
 
-					$output .= sprintf('<tr><td port="f%d" align="left"><font color="#333333">%s</font> <font color="#aaaaaa" point-size="10">%s</font></td></tr>',
+					$output .= sprintf("\t\t\t\t<tr><td port=\"f%d\" align=\"left\">%s <font color=\"#aaaaaa\" point-size=\"10'\">%s</font></td></tr>\n",
 						$field->get("id"),
-						$field->get("label"),
+						(($show_ids) ? " <font color=\"#cccccc\">" . $field->get("id") . "</font> " : '') . "<font color=\"#333333\">" . $field->get("label") . "</font>",
 						$field->get('type')
 					);
 					
@@ -129,19 +138,21 @@
 					
 				}
 				
-				$output .= sprintf('
-						</table>>];'
+				$output .= sprintf("\t\t\t\t</table>>
+				];\n\n"
 				);
 
 			}
 			
-			foreach($relationships as $rel) {
-				$output .= sprintf(
-					's%d:f%d -> %s [arrowsize = 0.5, color="#666666"];',
-					$rel[0],
-					$rel[1],
-					(($rel[3] == null) ? 's' . $rel[2] . ':h' . $rel[2] : 's' . $rel[2] . ':f' . $rel[3])
-				);
+			if ($show_relationships) {
+				foreach($relationships as $rel) {
+					$output .= sprintf(
+						"\t\t\ts%d:f%d -> %s [arrowsize = 0.5, color=\"#666666\"];\n",
+						$rel[0],
+						$rel[1],
+						(($rel[3] == null) ? 's' . $rel[2] . ':h' . $rel[2] : 's' . $rel[2] . ':f' . $rel[3])
+					);
+				}
 			}
 			
 			$output .= '}';
@@ -164,7 +175,12 @@
 		public function appendPreferences($context){
 			
 			if(isset($_POST['action']['entity-diagram-graphviz-export'])){
-				$this->export($_POST['fields']['entity-diagram-sections']);
+				$this->export(
+					$_POST['fields']['entity-diagram-sections'],
+					isset($_POST['fields']['entity-diagram-show-ids']),
+					$_POST['fields']['entity-diagram-pagesize'],
+					isset($_POST['fields']['entity-diagram-show-relationships'])
+				);
 			}
 
 			$group = new XMLElement('fieldset');
@@ -198,12 +214,54 @@
 					$options,
 					array(
 						'multiple' => 'multiple',
-						'style' => ('height:' . (count($sections) * 12) . 'px;')
+						'style' => ('height:' . ((count($sections) + 1) * 12) . 'px;')
 					)
 				)
 			);
-
 			$group->appendChild($label);
+			
+			$field_group = new XMLElement('div', NULL, array('class' => 'group'));
+			
+			$label = Widget::Label(
+				__('Page Size'),
+				Widget::Select(
+					'fields[entity-diagram-pagesize]',
+					array(
+						array('auto', TRUE, 'Auto'),
+						array('11.19,7.76', FALSE, 'A4'),
+						array('16.03,11.19', FALSE, 'A3'),
+						array('22.88,16.03', FALSE, 'A2'),
+						array('32.61,22.88', FALSE, 'A1'),
+						array('46.31,32.61', FALSE, 'A0')
+					)
+				)
+			);
+			$field_group->appendChild($label);
+			
+			$label = new XMLElement(
+				'span',
+				
+				'<label style="margin-bottom:0.5em;">' . Widget::Input(
+					'fields[entity-diagram-show-relationships]',
+					'yes',
+					'checkbox',
+					array('checked' => 'checked')
+				)->generate() . __('Join section relationships with arrows') . '</label>' .
+				
+				'<label>' . Widget::Input(
+					'fields[entity-diagram-show-ids]',
+					'yes',
+					'checkbox'
+				)->generate() . __('Show section and field IDs') . '</label>',
+				
+				array('style' => 'display:block;')
+			);
+			$field_group->appendChild($label);			
+			
+			
+			
+			$group->appendChild($field_group);
+			
 			$group->appendChild(
 				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit', $attributes)
 			);
