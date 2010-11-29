@@ -138,11 +138,6 @@ EntityDiagram = {
 			$(".highlighted").removeClass("highlighted");
 		});
 		
-		$("#field-57 .section-link").each(function() {
-			var id = $(this).attr("class").replace(/section-link section-link-/,"");
-			$(".section-link-" + id, self.container).parents(".field").addClass("highlighted");
-		});
-		
 		$("h2").append("<label><input type='checkbox' id='advanced-info' />" + Symphony.Language.get("Show section and field IDs") + "</label>");
 
 		$("#advanced-info").change(function() {
