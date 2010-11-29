@@ -16,7 +16,6 @@
 		function view(){
 			
 			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 271);
-			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd-print.css', 'print', 272);
 			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
 
 			$this->setPageType('table');
