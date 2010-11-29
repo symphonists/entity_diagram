@@ -50,11 +50,18 @@
 				// add section name and entry count
 				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->_data["id"] . "</span>" . $section->_data["name"] . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->_data["id"] . "/\" class=\"edit\">" . __("edit") . "</a>"));
 				
+				$field_list = new XMLElement("ul");
+				
 				// get list of fields
 				$fields = $section->fetchFields();
-				if (!is_array($fields)) continue;
-				
-				$field_list = new XMLElement("ul");
+					
+				if (!is_array($fields)) {
+					$field_node = new XMLElement("li", __("No fields"), array('class' => 'field inactive'));
+					$field_list->appendChild($field_node);
+					$section_node->appendChild($field_list);
+					$output->appendChild($section_node);
+					continue;
+				}				
 				
 				foreach($fields as $field) {
 					
