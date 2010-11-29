@@ -2,9 +2,9 @@
 Entity Diagram extension
 ------------------------------------
 
-Version: 1.4.1
+Version: 1.4.2
 Author: Nick Dunn
-Build Date: 2010-08-27
+Build Date: 2010-11-29
 Requirements: Symphony 2.0.3
 
 
@@ -19,7 +19,14 @@ Requirements: Symphony 2.0.3
 
 [CHANGES]
 
-1.5 (thanks phoque!)
+1.4.2
+- removed very broken print stylesheets (no longer supported)
+- added output of IDs to Graphviz (thanks designermonkey!)
+- added page size (A4 etc.) to Graphviz (thanks designermonkey!)
+- added optional output of relationship arrows
+- tidied up Graphviz output
+
+1.4.1 (thanks phoque!)
 - removed jQuery, now uses Symphony's jQuery bundle
 - added German localisation
 
