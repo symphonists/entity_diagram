@@ -6,8 +6,8 @@
 		public function about(){
 			return array(
 				'name'			=> 'Entity Diagram',
-				'version'		=> '1.4.3',
-				'release-date'	=> '2010-11-29',
+				'version'		=> '1.4.4',
+				'release-date'	=> '2011-02-05',
 				'author' => array(
 					'name'		=> 'Nick Dunn',
 					'website'	=> 'http://nick-dunn.co.uk')
@@ -60,6 +60,8 @@
 			$sm = new SectionManager(Administration::instance());
 		  	$sections = $sm->fetch();
 		
+			$fm = new FieldManager(Administration::instance());
+		
 			$relationships = array();
 			
 			// get all section links
@@ -96,11 +98,11 @@
 
 							// get the parent section and the parent field
 							$parent_section = $sm->fetch($relationship["parent_section_id"]);
-							$parent_section_field = $section->_fieldManager->fetch($relationship["parent_section_field_id"]);
+							$parent_section_field = $fm->fetch($relationship["parent_section_field_id"]);
 
 							// get the child section and the child field
 							$child_section = $sm->fetch($relationship["child_section_id"]);
-							$child_section_field = $section->_fieldManager->fetch($relationship["child_section_field_id"]);
+							$child_section_field = $fm->fetch($relationship["child_section_field_id"]);
 							
 							// if a parent
 							if ($field->get("id") == $relationship["parent_section_field_id"]) {
