@@ -106,18 +106,18 @@
 							if ($field->get("id") == $relationship["parent_section_field_id"]) {
 								if ($child_section_field) {
 									// get the properties of this relationship
-									$linked_section_id = $child_section->_data["id"];
-									$linked_section_name = $child_section->_data["name"];
-									$linked_section_handle = $child_section->_data["handle"];
+									$linked_section_id = $child_section->get('id');
+									$linked_section_name = $child_section->get('name');
+									$linked_section_handle = $child_section->get('handle');
 									$linked_field_name = $child_section_field->get("label");
 									$linked_field_id = $child_section_field->get("id");
 								}								
 							} else {
 								if ($parent_section_field) {
 									// get the properties of this relationship
-									$linked_section_id = $parent_section->_data["id"];
-									$linked_section_name = $parent_section->_data["name"];
-									$linked_section_handle = $parent_section->_data["handle"];
+									$linked_section_id = $parent_section->get('id');
+									$linked_section_name = $parent_section->get('name');
+									$linked_section_handle = $parent_section->get('handle');
 									$linked_field_name = $parent_section_field->get("label");
 									$linked_field_id = $parent_section_field->get("id");
 								}

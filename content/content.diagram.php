@@ -19,11 +19,13 @@
 			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
 
 			$this->setPageType('table');
-			$this->appendSubheading(__('Entity Diagram') . ' <span>' . $this->_Parent->Configuration->get('sitename', 'general') . '</span>');
+			$this->appendSubheading(__('Entity Diagram'));
 			
 			// get all sections
-			$sm = new SectionManager($this->_Parent);
+			$sm = new SectionManager(Symphony::Engine());
 		  	$sections = $sm->fetch(NULL, 'ASC', 'name');
+		
+			$fm = new FieldManager(Symphony::Engine());
 			
 			$output = new XMLElement("div");
 			$output->setAttribute("id", "diagram");
@@ -34,11 +36,11 @@
 			foreach($sections as $section) {
 				
 				// count number of entries
-				$entry_count = $this->_Parent->Database->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->_data["id"] . "'");
+				$entry_count = $this->_Parent->Database->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->get('id') . "'");
 				
 				$section_node = new XMLElement("div");
 				$section_node->setAttribute("class", "section");
-				$section_node->setAttribute("id", "section-" . $section->_data["id"]);
+				$section_node->setAttribute("id", "section-" . $section->get('id'));
 				
 				if ($entry_count["count"] == 1) {
 					$entries = __('1 entry');
@@ -47,7 +49,7 @@
 				}
 				
 				// add section name and entry count
-				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->_data["id"] . "</span>" . $section->_data["name"] . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->_data["id"] . "/\" class=\"edit\">" . __("edit") . "</a>"));
+				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->get('id') . "</span>" . $section->get('name') . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->get('id') . "/\" class=\"edit\">" . __("edit") . "</a>"));
 				
 				$field_list = new XMLElement("ul");
 				
@@ -85,11 +87,11 @@
 
 							// get the parent section and the parent field
 							$parent_section = $sm->fetch($relationship["parent_section_id"]);
-							$parent_section_field = $section->_fieldManager->fetch($relationship["parent_section_field_id"]);
+							$parent_section_field = $fm->fetch($relationship["parent_section_field_id"]);
 
 							// get the child section and the child field
 							$child_section = $sm->fetch($relationship["child_section_id"]);
-							$child_section_field = $section->_fieldManager->fetch($relationship["child_section_field_id"]);
+							$child_section_field = $fm->fetch($relationship["child_section_field_id"]);
 							
 							$relationship_exists = false;
 							
@@ -97,13 +99,13 @@
 							if ($field_properties["id"] == $relationship["parent_section_field_id"]) {
 								if ($child_section_field) {
 									// get the properties of this relationship
-									$linked_section_name = $child_section->_data["name"];
+									$linked_section_name = $child_section->get('name');
 									$linked_field_name = $child_section_field->get("label");
 								}								
 							} else {
 								if ($parent_section_field) {
 									// get the properties of this relationship
-									$linked_section_name = $parent_section->_data["name"];
+									$linked_section_name = $parent_section->get('name');
 									$linked_field_name = $parent_section_field->get("label");
 								}								
 							}
