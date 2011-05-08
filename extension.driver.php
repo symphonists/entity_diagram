@@ -6,8 +6,8 @@
 		public function about(){
 			return array(
 				'name'			=> 'Entity Diagram',
-				'version'		=> '1.4.4',
-				'release-date'	=> '2011-02-05',
+				'version'		=> '1.4.5',
+				'release-date'	=> '2011-05-08',
 				'author' => array(
 					'name'		=> 'Nick Dunn',
 					'website'	=> 'http://nick-dunn.co.uk')

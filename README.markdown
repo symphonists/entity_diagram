@@ -1,8 +1,8 @@
 #  Entity Diagram
 
-* Version: 1.4.4
+* Version: 1.4.5
 * Author: Nick Dunn
-* Build Date: 2011-02-05
+* Build Date: 2011-05-08
 * Requirements: Symphony 2.2
 
 ## Installation
