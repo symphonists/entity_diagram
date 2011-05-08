@@ -9,7 +9,6 @@
 
 		function __construct(&$parent){
 			parent::__construct($parent);
-			$this->setTitle('Symphony &ndash; ' . __('Entity Diagram'));
 		}
 	
 	
@@ -20,6 +19,7 @@
 
 			$this->setPageType('table');
 			$this->appendSubheading(__('Entity Diagram'));
+			$this->setTitle('Symphony &ndash; ' . __('Entity Diagram'));
 			
 			// get all sections
 			$sm = new SectionManager(Symphony::Engine());
