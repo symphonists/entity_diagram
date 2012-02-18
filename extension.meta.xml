@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension id="entity_diagram">
+<extension id="entity_diagram" xmlns="http://symphony-cms.com/schemas/extension/1.0">
 	<name>Entity Diagram</name>
 	<description>Visualise your sections in an interactive entity/UML-type diagram, or export to Graphviz to print, share and document your projects.</description>
 	<repo type="github">https://github.com/nickdunn/entity_diagram</repo>

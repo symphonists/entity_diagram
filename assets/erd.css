@@ -131,3 +131,7 @@ div.advanced span.section-id {
 	width: 22px;
 	display: inline-block;
 }
+
+.field {
+	min-height: 0;
+}
