@@ -170,18 +170,17 @@
 					isset($_POST['fields']['entity-diagram-show-relationships'])
 				);
 			}
-
-			$group = new XMLElement('fieldset');
-			$group->setAttribute('class', 'settings');
-			$group->appendChild(new XMLElement('legend', __('Entity Diagram Export')));
+			
+			$fieldset = new XMLElement('fieldset');
+			$fieldset->setAttribute('class', 'settings');
+			$fieldset->appendChild(new XMLElement('legend', __('Entity Diagram Export')));
 
 			$aTableBody = array();
 			$options = array();
 			
 		  	$sections = SectionManager::fetch(NULL, 'ASC', 'name');
-			
-			$selected = true;
-			
+
+			$selected = true;			
 			if(!empty($sections)){
 				foreach($sections as $section) {
 					$options[] = array($section->get('id'), $selected, $section->get('name'));
@@ -192,7 +191,7 @@
 				$attributes = array('disabled' => 'disabled');
 			}
 			
-			
+			$group = new XMLElement('div', NULL, array('class' => 'group'));
 			
 			$label = Widget::Label(
 				__('Included Sections'),
@@ -206,8 +205,6 @@
 				)
 			);
 			$group->appendChild($label);
-			
-			$field_group = new XMLElement('div', NULL, array('class' => 'group'));
 			
 			$label = Widget::Label(
 				__('Page Size'),
@@ -223,37 +220,38 @@
 					)
 				)
 			);
-			$field_group->appendChild($label);
+			$group->appendChild($label);
 			
-			$label = new XMLElement(
-				'span',
-				
-				'<label style="margin-bottom:0.5em;">' . Widget::Input(
+			$fieldset->appendChild($group);
+			
+			$group = new XMLElement('div', NULL, array('class' => 'group'));
+			
+			$label = Widget::Label(
+				Widget::Input(
 					'fields[entity-diagram-show-relationships]',
 					'yes',
 					'checkbox',
 					array('checked' => 'checked')
-				)->generate() . __('Join section relationships with arrows') . '</label>' .
-				
-				'<label>' . Widget::Input(
+				)->generate() . ' ' . __('Join section relationships with arrows')
+			);
+			$group->appendChild($label);
+			
+			$label = Widget::Label(
+				Widget::Input(
 					'fields[entity-diagram-show-ids]',
 					'yes',
 					'checkbox'
-				)->generate() . __('Show section and field IDs') . '</label>',
-				
-				array('style' => 'display:block;')
+				)->generate() . __('Show section and field IDs')
 			);
-			$field_group->appendChild($label);			
+			$group->appendChild($label);
+						
+			$fieldset->appendChild($group);
 			
-			
-			
-			$group->appendChild($field_group);
-			
-			$group->appendChild(
+			$fieldset->appendChild(
 				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit', $attributes)
 			);
 							
-			$context['wrapper']->appendChild($group);
+			$context['wrapper']->appendChild($fieldset);
 					
 		}
 			
