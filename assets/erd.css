@@ -3,7 +3,7 @@ body {
 }
 
 div#diagram {
-	padding: 0 20px;
+	padding: 0 18px;
 	overflow: hidden;
 	padding-bottom: 50px;
 	clear: both;
@@ -11,6 +11,7 @@ div#diagram {
 
 div.section {
 	border: 1px solid #ccc;
+	border-radius: 5px 5px 0 0;
 	float: left;
 	width: 300px;
 	visibility: hidden;
@@ -28,6 +29,7 @@ div.section h3 {
 	width: auto;
 	padding: 5px;
 	border-bottom: 1px solid #ccc;
+	border-radius: 5px 5px 0 0;
 	background-color: #eee;
 	margin: 0;
 	overflow: hidden;
@@ -64,6 +66,8 @@ div.section ul {
 div.section li {
 	border-bottom: 1px solid #eee;
 	padding: 5px;
+	min-height: 1px;
+	margin: 0;
 }
 
 div.section span.type {
@@ -100,24 +104,6 @@ span.section-id {
 	display: none;
 }
 
-h2 label {
-	display: block;
-	font-size: 0.8em;
-	margin-top: 0.5em;
-	color: #aaa;
-	text-shadow: none;
-}
-
-h2 span {
-	color: #ccc;
-	text-shadow: none;
-}
-
-h2 label input {
-	vertical-align: text-bottom;
-	margin-right: 4px;
-}
-
 div.advanced div.section span.section-link {
 	padding-left: 25px;
 }
@@ -130,4 +116,15 @@ div.advanced span.field-id,
 div.advanced span.section-id {
 	width: 22px;
 	display: inline-block;
+}
+
+#show-meta {
+	float: right;
+	margin: 0;
+	color: darkGray;
+}
+
+#show-meta input {
+	vertical-align: text-top;
+	margin-right: 6px;
 }

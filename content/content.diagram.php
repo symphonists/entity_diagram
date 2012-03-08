@@ -22,21 +22,18 @@
 			$this->setTitle('Symphony &ndash; ' . __('Entity Diagram'));
 			
 			// get all sections
-			$sm = new SectionManager(Symphony::Engine());
-		  	$sections = $sm->fetch(NULL, 'ASC', 'name');
-		
-			$fm = new FieldManager(Symphony::Engine());
+		  	$sections = SectionManager::fetch(NULL, 'ASC', 'name');
 			
 			$output = new XMLElement("div");
 			$output->setAttribute("id", "diagram");
 			
 			// get all section links
-			$section_associations = Symphony::Engine()->Database()->fetch("SELECT * FROM tbl_sections_association");
+			$section_associations = Symphony::Database()->fetch("SELECT * FROM tbl_sections_association");
 			
 			foreach($sections as $section) {
 				
 				// count number of entries
-				$entry_count = Symphony::Engine()->Database()->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->get('id') . "'");
+				$entry_count = Symphony::Database()->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->get('id') . "'");
 				
 				$section_node = new XMLElement("div");
 				$section_node->setAttribute("class", "section");
@@ -86,12 +83,12 @@
 						if ($field_properties["id"] == $relationship["parent_section_field_id"] || $field_properties["id"] == $relationship["child_section_field_id"]) {
 
 							// get the parent section and the parent field
-							$parent_section = $sm->fetch($relationship["parent_section_id"]);
-							$parent_section_field = $fm->fetch($relationship["parent_section_field_id"]);
+							$parent_section = SectionManager::fetch($relationship["parent_section_id"]);
+							$parent_section_field = FieldManager::fetch($relationship["parent_section_field_id"]);
 
 							// get the child section and the child field
-							$child_section = $sm->fetch($relationship["child_section_id"]);
-							$child_section_field = $fm->fetch($relationship["child_section_field_id"]);
+							$child_section = SectionManager::fetch($relationship["child_section_id"]);
+							$child_section_field = FieldManager::fetch($relationship["child_section_field_id"]);
 							
 							$relationship_exists = false;
 							

@@ -138,7 +138,7 @@ EntityDiagram = {
 			$(".highlighted").removeClass("highlighted");
 		});
 		
-		$("h2").append("<label><input type='checkbox' id='advanced-info' />" + Symphony.Language.get("Show section and field IDs") + "</label>");
+		$("#context").append("<label id='show-meta'><input type='checkbox' id='advanced-info' />" + Symphony.Language.get("Show section and field IDs") + "</label>");
 
 		$("#advanced-info").change(function() {
 			if ($(this).is(":checked")) {
