@@ -2,17 +2,6 @@
 	require_once(TOOLKIT . '/class.sectionmanager.php');
 	
 	Class extension_entity_diagram extends Extension {
-	
-		public function about(){
-			return array(
-				'name'			=> 'Entity Diagram',
-				'version'		=> '1.4.5',
-				'release-date'	=> '2011-05-08',
-				'author' => array(
-					'name'		=> 'Nick Dunn',
-					'website'	=> 'http://nick-dunn.co.uk')
-			);
-		}
 
 		public function fetchNavigation() {
 			return array(
