@@ -46,15 +46,12 @@
 				fontname = Arial
 			];\n\n";
 			
-			$sm = new SectionManager(Administration::instance());
-		  	$sections = $sm->fetch();
-		
-			$fm = new FieldManager(Administration::instance());
+		  	$sections = SectionManager::fetch();
 		
 			$relationships = array();
 			
 			// get all section links
-			$section_associations = $this->_Parent->Database->fetch("SELECT * FROM tbl_sections_association");
+			$section_associations = Symphony::Engine()->Database()->fetch("SELECT * FROM tbl_sections_association");
 			
 			foreach($sections as $section) {
 				if (!in_array($section->get('id'), $section_ids)) continue;
@@ -86,12 +83,12 @@
 						if ($field->get("id") == $relationship["parent_section_field_id"] || $field->get("id") == $relationship["child_section_field_id"]) {
 
 							// get the parent section and the parent field
-							$parent_section = $sm->fetch($relationship["parent_section_id"]);
-							$parent_section_field = $fm->fetch($relationship["parent_section_field_id"]);
+							$parent_section = SectionManager::fetch($relationship["parent_section_id"]);
+							$parent_section_field = FieldManager::fetch($relationship["parent_section_field_id"]);
 
 							// get the child section and the child field
-							$child_section = $sm->fetch($relationship["child_section_id"]);
-							$child_section_field = $fm->fetch($relationship["child_section_field_id"]);
+							$child_section = SectionManager::fetch($relationship["child_section_id"]);
+							$child_section_field = FieldManager::fetch($relationship["child_section_field_id"]);
 							
 							// if a parent
 							if ($field->get("id") == $relationship["parent_section_field_id"]) {
@@ -123,7 +120,7 @@
 					}
 					
 					if ($field->get('type') == 'subsectionmanager') {
-						$child_section = $sm->fetch($field->get('subsection_id'));
+						$child_section = SectionManager::fetch($field->get('subsection_id'));
 						$relationships[] = array($section->get("id"), $field->get("id"), $child_section->get('id'), null);
 					}
 					
@@ -149,7 +146,7 @@
 			$output .= '}';
 			
 			$file_path = MANIFEST . '/tmp/';
-			$file_name = Lang::createHandle(Administration::instance()->Configuration->get('sitename', 'general')) . '-' . date('Ymd', time()) . '.gv';
+			$file_name = Lang::createHandle(Symphony::Engine()->Configuration()->get('sitename', 'general')) . '-' . date('Ymd', time()) . '.gv';
 			
 			file_put_contents($file_path . $file_name, $output);
 			
@@ -181,8 +178,7 @@
 			$aTableBody = array();
 			$options = array();
 			
-			$sm = new SectionManager($this->_Parent);
-		  	$sections = $sm->fetch(NULL, 'ASC', 'name');
+		  	$sections = SectionManager::fetch(NULL, 'ASC', 'name');
 			
 			$selected = true;
 			

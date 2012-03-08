@@ -7,15 +7,15 @@
 	
 	Class contentExtensionEntity_DiagramDiagram extends AdministrationPage{
 
-		function __construct(&$parent){
-			parent::__construct($parent);
+		function __construct(){
+			parent::__construct();
 		}
 	
 	
 		function view(){
 			
-			$this->_Parent->Page->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 271);
-			$this->_Parent->Page->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
+			$this->addStylesheetToHead(URL . '/extensions/entity_diagram/assets/erd.css', 'all', 271);
+			$this->addScriptToHead(URL . '/extensions/entity_diagram/assets/erd.js', 274);
 
 			$this->setPageType('table');
 			$this->appendSubheading(__('Entity Diagram'));
@@ -31,12 +31,12 @@
 			$output->setAttribute("id", "diagram");
 			
 			// get all section links
-			$section_associations = $this->_Parent->Database->fetch("SELECT * FROM tbl_sections_association");
+			$section_associations = Symphony::Engine()->Database()->fetch("SELECT * FROM tbl_sections_association");
 			
 			foreach($sections as $section) {
 				
 				// count number of entries
-				$entry_count = $this->_Parent->Database->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->get('id') . "'");
+				$entry_count = Symphony::Engine()->Database()->fetchRow(0, "SELECT COUNT(id) as count FROM tbl_entries WHERE section_id='" . $section->get('id') . "'");
 				
 				$section_node = new XMLElement("div");
 				$section_node->setAttribute("class", "section");
