@@ -46,7 +46,7 @@
 				}
 				
 				// add section name and entry count
-				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->get('id') . "</span>" . $section->get('name') . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->get('id') . "/\" class=\"edit\">" . __("edit") . "</a>"));
+				$section_node->appendChild(new XMLElement("h3", "<span><span class=\"section-id\">" . $section->get('id') . "</span>" . General::sanitize($section->get('name')) . "<span class=\"entry-count\">".$entries."</span></span><a href=\"" . URL . "/symphony/blueprints/sections/edit/" . $section->get('id') . "/\" class=\"edit\">" . __("edit") . "</a>"));
 				
 				$field_list = new XMLElement("ul");
 				
@@ -59,7 +59,7 @@
 					$section_node->appendChild($field_list);
 					$output->appendChild($section_node);
 					continue;
-				}				
+				}
 				
 				foreach($fields as $field) {
 					
@@ -70,10 +70,10 @@
 					$field_node->setAttribute("class", "field");
 					$field_node->setAttribute("id", "field-" . $field_properties["id"]);
 
-					$field_name = new XMLElement("span", "<span class=\"field-id\">" . $field_properties["id"] . "</span> " . $field_properties["label"]);
+					$field_name = new XMLElement("span", "<span class=\"field-id\">" . $field_properties["id"] . "</span> " . General::sanitize($field_properties["label"]));
 					$field_name->setAttribute("class", "name");
 
-					$field_type = new XMLElement("span", "(" . $field_properties["type"] . ")");
+					$field_type = new XMLElement("span", "(" . General::sanitize($field_properties["type"]) . ")");
 					$field_type->setAttribute("class", "type");
 					
 					// find a section link involving this field
@@ -98,32 +98,35 @@
 									// get the properties of this relationship
 									$linked_section_name = $child_section->get('name');
 									$linked_field_name = $child_section_field->get("label");
-								}								
+								}
 							} else {
 								if ($parent_section_field) {
 									// get the properties of this relationship
 									$linked_section_name = $parent_section->get('name');
 									$linked_field_name = $parent_section_field->get("label");
-								}								
+								}
 							}
 							
 							if ($linked_field_name) {
-								$sb_meta = new XMLElement("span", __("Linked to <span class='name'>%s</span> in %s", array($linked_field_name, $linked_section_name)));
-								$sb_meta->setAttribute("class", "section-link section-link-" . $relationship["id"]);		
+								$sb_meta = new XMLElement("span", __("Linked to <span class='name'>%s</span> in %s", array(
+									General::sanitize($linked_field_name),
+									General::sanitize($linked_section_name)
+								)));
+								$sb_meta->setAttribute("class", "section-link section-link-" . $relationship["id"]);
 								$field_type->appendChild($sb_meta);
 							}
 							
 						}
 						
 					}
-										
+
 					$field_node->appendChild($field_name);
 					$field_node->appendChild($field_type);
 					
 					$field_list->appendChild($field_node);
 					
 				}
-								
+
 				$section_node->appendChild($field_list);
 				
 				$output->appendChild($section_node);
@@ -134,5 +137,3 @@
 
 		}
 	}
-	
-?>

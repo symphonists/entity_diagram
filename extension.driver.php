@@ -32,7 +32,7 @@
 			
 			if ($pagesize != 'auto') {
 				$output .= "
-				size = \"" . $pagesize . "\"
+				size = \"" . General::sanitize($pagesize) . "\"
 				ratio = fill
 				";
 			}
@@ -72,7 +72,7 @@
 
 					$output .= sprintf("\t\t\t\t<tr><td port=\"f%d\" align=\"left\">%s <font color=\"#aaaaaa\" point-size=\"10'\">%s</font></td></tr>\n",
 						$field->get("id"),
-						(($show_ids) ? " <font color=\"#cccccc\">" . $field->get("id") . "</font> " : '') . "<font color=\"#333333\">" . $field->get("label") . "</font>",
+						(($show_ids) ? " <font color=\"#cccccc\">" . $field->get("id") . "</font> " : '') . "<font color=\"#333333\">" . General::sanitize($field->get("label")) . "</font>",
 						$field->get('type')
 					);
 					
@@ -99,7 +99,7 @@
 									$linked_section_handle = $child_section->get('handle');
 									$linked_field_name = $child_section_field->get("label");
 									$linked_field_id = $child_section_field->get("id");
-								}								
+								}
 							} else {
 								if ($parent_section_field) {
 									// get the properties of this relationship
@@ -114,9 +114,7 @@
 							if ($linked_section_id && in_array($linked_section_id, $section_ids)) {
 								$relationships[] = array($section->get("id"), $field->get("id"), $linked_section_id, $linked_field_id);
 							}
-							
 						}
-						
 					}
 					
 					if ($field->get('type') == 'subsectionmanager') {
@@ -152,9 +150,9 @@
 			
 			header('Content-type: application/.gv');
 			header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-		    header('Content-disposition: attachment; filename=' . $file_name);
-		    header('Pragma: no-cache');
-		
+			header('Content-disposition: attachment; filename=' . $file_name);
+			header('Pragma: no-cache');
+			
 			readfile($file_path . $file_name);
 			exit();
 			
@@ -178,20 +176,20 @@
 			$aTableBody = array();
 			$options = array();
 			
-		  	$sections = SectionManager::fetch(NULL, 'ASC', 'name');
+			$sections = SectionManager::fetch(null, 'ASC', 'name');
 
-			$selected = true;			
+			$selected = true;
 			if(!empty($sections)){
 				foreach($sections as $section) {
-					$options[] = array($section->get('id'), $selected, $section->get('name'));
-					$attributes = NULL;
+					$options[] = array($section->get('id'), $selected, General::sanitize($section->get('name')));
+					$attributes = null;
 				}
 			} else {
-				$options = NULL;
+				$options = null;
 				$attributes = array('disabled' => 'disabled');
 			}
 			
-			$group = new XMLElement('div', NULL, array('class' => 'group'));
+			$group = new XMLElement('div', null, array('class' => 'group'));
 			
 			$label = Widget::Label(
 				__('Included Sections'),
@@ -224,7 +222,7 @@
 			
 			$fieldset->appendChild($group);
 			
-			$group = new XMLElement('div', NULL, array('class' => 'group'));
+			$group = new XMLElement('div', null, array('class' => 'group'));
 			
 			$label = Widget::Label(
 				Widget::Input(
@@ -244,17 +242,13 @@
 				)->generate() . __('Show section and field IDs')
 			);
 			$group->appendChild($label);
-						
+			
 			$fieldset->appendChild($group);
 			
 			$fieldset->appendChild(
 				Widget::Input('action[entity-diagram-graphviz-export]', __('Export Graphviz'), 'submit', $attributes)
 			);
-							
-			$context['wrapper']->appendChild($fieldset);
-					
-		}
 			
+			$context['wrapper']->appendChild($fieldset);
+		}
 	}
-
-?>
