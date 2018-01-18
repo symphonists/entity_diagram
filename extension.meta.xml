@@ -3,14 +3,14 @@
 	<name>Entity Diagram</name>
 	<description>Visualise your sections in an interactive entity/UML-type diagram, or export to Graphviz to print, share and document your projects.</description>
 	<repo type="github">https://github.com/symphonists/entity_diagram</repo>
-	<url type="discuss">http://www.getsymphony.com/discuss/thread/646/</url>
+	<url type="discuss">https://www.getsymphony.com/discuss/thread/646/</url>
 	<types>
 		<type>Other</type>
 	</types>
 	<authors>
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
-			<website>http://www.getsymphony.com/</website>
+			<website>https://www.getsymphony.com/</website>
 		</author>
 		<author>
 			<name github="nickdunn" symphony="nickdunn">Nick Dunn</name>
@@ -18,6 +18,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.5.3" date="2018-01-18" min="2.3.x" max="2.x.x">
+			- Sanitize widget's content
+		</release>
 		<release version="1.5.2" date="2016-03-06" min="2.3.x" max="2.x.x">
 			- Updated compatibility info
 		</release>
